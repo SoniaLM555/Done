@@ -11,13 +11,14 @@
 <body>
 <div>
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-      <div class="col-md-3 mb-2 mb-md-0">
+      <div>
         <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-         <img src="/assets/images/Logo.png" alt="Logo Done">
+        <img src="/assets/images/Logo.png" alt="Logo Done">
         </a>
+        <H1 class="text-center">Done!</H1>
       </div>
 
-      <H1 >Done!</H1>
+     
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="#" class="nav-link px-2 link-secondary">Accueil</a></li>
@@ -25,7 +26,7 @@
       </ul>
 
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2">Se connecter</button>
+        <button type="button" class="btn btn-outline-primary me-2" >Se connecter</button>
       </div>
     </header>
 </div>
@@ -72,6 +73,8 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
           </svg>
+
+
             <h3 class="m-3 display-10 ">Retrouver facilement tes listes</h3>
           </div>
         </div>
