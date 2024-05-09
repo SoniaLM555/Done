@@ -3,20 +3,23 @@
     require_once __DIR__."/lib/pdo.php";
     require_once __DIR__."/lib/user.php";
 
-    $errors= [];
+    $errors = [];
     
     if (isset($_POST['loginUser'])) {
         $user = verifyUserLoginPassword($pdo, $_POST['email'], $_POST['password']);
 
         if ($user) {
             //on connecte => session
+            $_SESSION['users'] = $user;
+            header('location: index.php');
         } else {
             //afficher une erreur
             $errors[] = "Email ou mot de passe incorrect";
         
         }
-    }
+        var_dump($_SESSION);
 
+    }
 ?>
 
 <div class="container">
