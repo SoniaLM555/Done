@@ -30,10 +30,10 @@
             </ul>
 
             <div class="col-md-3 text-end">
-                <?php if (isset($_SESSION['users'])) { ?>
-                    <a href="logout.php" class="btn btn-outline-primary me-2">Se déconnecter</a>
+                <?php if (isUserConnected()) { ?>
+                    <a href="logout.php" class="btn btn-primary me-2">Se déconnecter</a>
                 <?php } else { ?>
-                    <a href="login.php" class="btn btn-outline-primary me-2">Se connecter</a>
+                    <a href="login.php" class="btn btn-primary me-2">Se connecter</a>
                 <?php } ?>
                 
             </div>
