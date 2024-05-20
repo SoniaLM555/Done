@@ -15,7 +15,7 @@ function getListsByUserId(PDO $pdo, int $userId): array
 
 function getListById(PDO $pdo, int $idList):array|bool
 {
-    $query = $pdo->prepare('SELECT * FROM list WHERE idList = :idList');
+    $query = $pdo->prepare("SELECT * FROM list WHERE idList = :idList");
     $query->bindValue(':idList', $idList, PDO::PARAM_INT);
     $query->execute();
 
@@ -26,7 +26,8 @@ function saveList(PDO $pdo, string $titleList, int $userId, int $idCategory, int
 {
     if ($idList) {
         // UPDATE
-        $query = $pdo->prepare("UPDATE 'list' SET titleList = :titleList, idCategory = :idCategory, idUser = :idUser
+        $query = $pdo->prepare("UPDATE 'list' SET titleList = :titleList, idCategory = :idCategory, 
+                                                               idUser = :idUser
                                 WHERE idList = :idList");
         $query->bindValue(':idList', $idList, PDO::PARAM_INT);
     } else {
@@ -50,7 +51,7 @@ function saveList(PDO $pdo, string $titleList, int $userId, int $idCategory, int
     }
 }
 
-function saveListItem(PDO $pdo, string $titleItem, int $idList, bool $status = false, int $idItem=null):int|bool
+function saveListItem(PDO $pdo, string $titleItem, int $idList, bool $status = false, int $idItem=null):bool
 {
     if ($idItem) {
         // UPDATE
@@ -61,7 +62,7 @@ function saveListItem(PDO $pdo, string $titleItem, int $idList, bool $status = f
     } else {
         // INSERT
         $query = $pdo->prepare("INSERT INTO item (titleItem, idList, status)
-                                VALUES (:titleItem, :idList, :status)");
+                                VALUES  (:titleItem, :idList, :status)");
     }
     $query->bindValue(':titleItem', $titleItem, PDO::PARAM_STR);
     $query->bindValue(':idList', $idList, PDO::PARAM_INT);
@@ -71,27 +72,27 @@ function saveListItem(PDO $pdo, string $titleItem, int $idList, bool $status = f
     
 }
 
-function getListItems(PDO $pdo, int $id):array
+function getListItems(PDO $pdo, int $idList):array
 {
-    $query = $pdo->prepare('SELECT * FROM item WHERE idList = :id');
-    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query = $pdo->prepare("SELECT * FROM item WHERE idList= :idList");
+    $query->bindValue(':idList', $idList, PDO::PARAM_INT);
     $query->execute();
 
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function deleteListItemById(PDO $pdo, int $id):bool
+function deleteListItemById(PDO $pdo, int $idItem):bool
 {
-    $query = $pdo->prepare('DELETE FROM item WHERE id = :id');
-    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query = $pdo->prepare("DELETE FROM item WHERE idItem = :idItem");
+    $query->bindValue(':idItem', $idItem, PDO::PARAM_INT);
     
     return $query->execute();
 }
 
-function updateListItemStatus(PDO $pdo, int $id, bool $status):bool
+function updateListItemStatus(PDO $pdo, int $idItem, bool $status):bool
 {
-    $query = $pdo->prepare('UPDATE item SET status = :status WHERE id = :id ');
-    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query = $pdo->prepare("UPDATE item SET 'status' = ':status' WHERE idItem = :idItem ");
+    $query->bindValue(':idItem', $idItem, PDO::PARAM_INT);
     $query->bindValue(':status', $status, PDO::PARAM_BOOL);
 
     return $query->execute();

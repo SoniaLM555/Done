@@ -3,12 +3,18 @@
     require_once 'templates/header.php';
     require_once 'lib/pdo.php';
     require_once 'lib/list.php';
+    require_once 'lib/category.php';
 
+
+    $categoryId = null;
     if (isset($_SESSION['users'])) {
+        if (isset($_GET['category'])) {
+            $categoryId = (int)$_GET['category'];
+        }
         $lists = getListsByUserId($pdo, $_SESSION['users']['idUser']);
-
-
     }
+
+    $categories = getCategories($pdo);
 
 ?>
 
@@ -16,25 +22,39 @@
 <div class= "container">
     <div class="d-flex justify-content-between align-items-center">
         <h1>Mes listes</h1>
-        <a href="ajout-modification-liste.php" class="btn btn-primary">Ajouter une liste</a>
+        <?php if (isUserConnected()) { ?>
+            <a href="ajout-modification-liste.php" class="btn btn-primary">Ajouter une liste</a>
+        <?php } ?>
+        
+        <form method="get">
+            <label for="category" class="form-label">Catégorie</label>
+            <select name="category" id="category" onchange="this.form.submit()">
+                <option value="">Toutes</option>
+                <?php foreach($categories as $category) { ?>
+                    <option <?=((int)$category['idCategory'] === $categoryId ? 'selected="selected"': '' )?> value="<?=$category['idCategory']?>"><?=$category['titleCategory']?></option>
+                <?php } ?>
+
+            </select>
+        </form>
+
+
+
     </div>
     
     <div class="row">
 
-        <?php if (isset($_SESSION['users'])) {
+        <?php if (isUserConnected()) {
             if ($lists) {
                 foreach ($lists as $list) {  ?>
                     <div class="col">
                         <div class="card" >
                             <div class="car-header d-flex align-item-center justify-content-evenly">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
-                                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
-                                    <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
-                                </svg>
+                                <
+                                
                                 <h3 class="m-3 display-10 "><?=$list['titleList'] ?></h3> 
                             </div>
                             <div class="card-body d-flex justify-content-between align-items-end">
-                                 <a href="#" class="btn btn-primary">Voir la liste</a>
+                                 <a href="ajout-modification-liste.php?idList=<?=$list['idList'] ?>" class="btn btn-primary">Voir la liste</a>
                                 <div>
                                     <span class="badge rounded-pill text-bg-primary">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-<?=$list['icon']?>" viewBox="0 0 16 16">
