@@ -1,17 +1,28 @@
 <?php 
 
-function getListsByUserId(PDO $pdo, int $userId): array
+function getListsByUserId(PDO $pdo, int $userId, int $idCategory=null): array
 {
-    $query = $pdo->prepare("SELECT `list`.*, category.titleCategory,
-                            category.icon FROM `list`
-                            JOIN category ON category.idCategory = `list`.idCategory
-                            WHERE idUser = :idUser");
+    $sql = "SELECT `list`.*, category.titleCategory as category_titleCategory, 
+    category.icon as category_icon 
+    FROM `list`
+    JOIN category ON category.idCategory = `list`.idCategory
+    WHERE idUser = :idUser";
+
+    if ($idCategory) {
+        $sql .= " AND `list`.idCategory = :idCategory";
+    }
+
+    $query = $pdo->prepare($sql);
     $query->bindValue(':idUser', $userId, PDO::PARAM_INT);
+    if ($idCategory) {
+        $query->bindValue(':idCategory', $idCategory, PDO::PARAM_INT);
+    }
     $query->execute();
     $lists = $query->fetchAll(PDO::FETCH_ASSOC);
 
     return $lists;
 }
+
 
 function getListById(PDO $pdo, int $idList):array|bool
 {
@@ -26,7 +37,7 @@ function saveList(PDO $pdo, string $titleList, int $userId, int $idCategory, int
 {
     if ($idList) {
         // UPDATE
-        $query = $pdo->prepare("UPDATE 'list' SET titleList = :titleList, idCategory = :idCategory, 
+        $query = $pdo->prepare("UPDATE 'list' SET titleList = :titleList, idCategory = :idCategory,
                                                                idUser = :idUser
                                 WHERE idList = :idList");
         $query->bindValue(':idList', $idList, PDO::PARAM_INT);

@@ -2,15 +2,15 @@
 
  ?>
 
-<div class="px-4 py-5 my-5 text-center">
-    <h1 class="display-5 fw-bold text-body-emphasis">Libère ton esprit !</h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Libère ta charge mentale avec des "To Do List" et suis ta progession .</p>
-      <button type="button" class="btn btn-primary">S'incrire</button>
-    </div>
-</div> 
+  <div class="px-4 py-5 my-5 text-center">
+      <h1 class="display-5 fw-bold text-body-emphasis">Libère ton esprit !</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Libère ta charge mentale avec des "To Do List" et suis ta progession .</p>
+        <button type="button" class="btn btn-primary">S'incrire</button>
+      </div>
+  </div>
 
-<div class="container px-4 py-5" id="custom-cards">
+  <div class="container px-4 py-5" id="custom-cards">
     <h1 class="pb-2 border-bottom text-center">Ce que tu vas pouvoir faire</h1>
 
     <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">

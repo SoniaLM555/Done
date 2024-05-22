@@ -17,12 +17,11 @@
             $errors[] = "Email ou mot de passe incorrect";
         
         }
-        var_dump($_SESSION);
 
     }
 ?>
 
-<div class="container">
+<div class="container col-xxl-8 px-4 py-5">
     <h1>Se connecter</h1>
 
     <?php
@@ -30,7 +29,6 @@
         <div class="alert alert-danger" role="alert">
             <?=$error; ?>
         </div>
-
         <?php }
     ?>
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once __DIR__."/templates/header.php";
 require_once __DIR__."/lib/pdo.php";
@@ -35,7 +35,7 @@ if(isset($_POST['saveList'])){
            if ($idList) {
                $messagesList[] = "La liste à bien été mise à jour";
            } else {
-            header('location: ajout-modification-liste.php?idList=' . $res );
+            header('Location: ajout-modification-liste.php?idList=' . $res );
            }
        } else {
             // erreur
@@ -122,14 +122,12 @@ if (isset($_GET['idList'])){
                             <label for="idCategory" class="form-label">Catégorie</label>
                             <select name="idCategory"  id="idCategory" class="form-control">
                                 <?php foreach ($categories as $category) { ?>
-                                    <option
-                                        <?=($category['idCategory'] === $list['idCategory']) ? 'selected="selected"' : '' ?>
-                                        value="<?=$category['idCategory'] ?>"><?=$category['titleCategory'] ?></option>
+                                    <option <?=($category['idCategory'] === $list['idCategory']) ? 'selected="selected"' : '' ?> value="<?=$category['idCategory'] ?>"><?=$category['titleCategory'] ?></option>
                                 <?php } ?>
-                                </select>
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <input type="submit" value="Enregistrer" name="savelist" class="btn btn-primary">
+                            <input type="submit" value="Enregistrer" name="saveList" class="btn btn-primary">
                         </div>
 
 
@@ -139,48 +137,48 @@ if (isset($_GET['idList'])){
             </div>
         </div>
     </div>
-<div class="row mt-3">
-    <?php if (!$editMode) { ?>
-    <div class="alert alert-warning">
-        Après avoir enregistré, vous pourrez ajouter les tâches.
-    </div>
-    <?php } else { ?>
-        <h2 class="border-top pt-3"> Tâches</h2>
-        <?php foreach ($errorsListItem as $error) { ?>
-            <div class="alert alert-danger">
-                <?= $error; ?>
+    <div class="row mt-3">
+        <?php if (!$editMode) { ?>
+            <div class="alert alert-warning">
+                Après avoir enregistré, vous pourrez ajouter les tâches.
             </div>
-        <?php } ?>
+        <?php } else { ?>
+            <h2 class="border-top pt-3"> Tâches</h2>
+            <?php foreach ($errorsListItem as $error) { ?>
+                <div class="alert alert-danger">
+                    <?= $error; ?>
+                </div>
+            <?php } ?>
 
-        <form method="post" class="d-flex">
-            <input type="checkbox" name="status" id="status">
-            <input type="text" name="titleItem" id="titleItem" placeholder="Ajouter une tâche" class="form-control mx-2">
-            <input type="submit" name="saveListItem" class="btn btn-primary" value="Enregistrer" >
-        </form>
-        <div class="row m-4 border rounded p-2 ">
-            <?php foreach($items as $item) { ?>
-                <div class="accordion mb-2">
-                    <div class="accordion-item" id="accordion-parent-<?$item['idItem']?>">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-item-<?=$item['idItem']?>" aria-expanded="false" aria-controls="collapseOne">
-                            <a class="me-2" href="?id=<?=$_GET['idList']?>&action=updateStatusListItem&idList=<?=$item['idItem'] ?>&status=<?=!$item['status'] ?>"><i class="bi bi-check-circle<?=($item['status'] ? '-fill' : '')?>"></i></a>
-                            <?= $item['titleItem'] ?>
-                            </button>
-                        </h2>
-                        <div id="collapse-item-<?=$item['idItem']?>" class="accordion-collapse collapse " data-bs-parent="#accordion-parent-<?$item['idItem']?>">
-                            <div class="accordion-body">
-                                <form action="" method="post">
-                                        <div class="mb-3 d-flex">
-                                            <input type="text" value="<?= $item['titleItem']; ?>" name="titleItem" class="form-control">
-                                            <input type="hidden" name="itemId" value="<?= $item['idItem']; ?>">
-                                            <input type="submit" value="Enregistrer" name="saveListItem" class="btn btn-primary">
-                                        </div>
-                                </form>
-                                <a class="btn btn-outline-primary" href="?id=<?=$_GET['idList']?>&action=deleteListItem&idList=<?=$item['idItem'] ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette tâche ?')"><i class="bi bi-trash3-fill"></i> Supprimer</a>
+            <form method="post" class="d-flex">
+                <input type="checkbox" name="status" id="status">
+                <input type="text" name="titleItem" id="titleItem" placeholder="Ajouter une tâche" class="form-control mx-2">
+                <input type="submit" name="saveListItem" class="btn btn-primary" value="Enregistrer" >
+            </form>
+            <div class="row m-4 border rounded p-2 ">
+                <?php foreach($items as $item) { ?>
+                    <div class="accordion mb-2">
+                        <div class="accordion-item" id="accordion-parent-<?$item['idItem']?>">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-item-<?=$item['idItem']?>" aria-expanded="false" aria-controls="collapseOne">
+                                <a class="me-2" href="?id=<?=$_GET['idList']?>&action=updateStatusListItem&idList=<?=$item['idItem'] ?>&status=<?=!$item['status'] ?>"><i class="bi bi-check-circle<?=($item['status'] ? '-fill' : '')?>"></i></a>
+                                <?= $item['titleItem'] ?>
+                                </button>
+                            </h2>
+                            <div id="collapse-item-<?=$item['idItem']?>" class="accordion-collapse collapse " data-bs-parent="#accordion-parent-<?$item['idItem']?>">
+                                <div class="accordion-body">
+                                    <form action="" method="post">
+                                            <div class="mb-3 d-flex">
+                                                <input type="text" value="<?= $item['titleItem']; ?>" name="titleItem" class="form-control">
+                                                <input type="hidden" name="idItem" value="<?= $item['idItem']; ?>">
+                                                <input type="submit" value="Enregistrer" name="saveListItem" class="btn btn-primary">
+                                            </div>
+                                    </form>
+                                    <a class="btn btn-outline-primary" href="?id=<?=$_GET['idList']?>&action=deleteListItem&idList=<?=$item['idItem'] ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette tâche ?')"><i class="bi bi-trash3-fill"></i> Supprimer</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <?php } ?>
             </div>
         <?php } ?>
