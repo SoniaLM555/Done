@@ -97,3 +97,4 @@ function updateListItemStatus(PDO $pdo, int $idItem, bool $status):bool
 
     return $query->execute();
 }
+

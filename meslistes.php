@@ -46,22 +46,30 @@
         <?php if (isUserConnected()) {
             if ($lists) {
                 foreach ($lists as $list) {  ?>
-                    <div class="col">
-                        <div class="card" >
+                    <div class="col-md-4 my-2">
+                        <div class="card w-100" >
                             <div class="car-header d-flex align-item-center justify-content-evenly">
-                                <
-                                
-                                <h3 class="m-3 display-10 "><?=$list['titleList'] ?></h3> 
+                                <i class="bi bi-card-checklist"></i>
+                                <h3 class="card-title"><?=$list['titleList'] ?></h3> 
                             </div>
-                            <div class="card-body d-flex justify-content-between align-items-end">
-                                 <a href="ajout-modification-liste.php?idList=<?=$list['idList'] ?>" class="btn btn-primary">Voir la liste</a>
-                                <div>
-                                    <span class="badge rounded-pill text-bg-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-<?=$list['icon']?>" viewBox="0 0 16 16">
-                                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
-                                        </svg>
-                                        <?=$list['titleCategory']?>
-                                    </span>
+                            <div class="card-body d-flex flex-column">
+                                <?php $item = getListItems($pdo, $list['idList']); ?>
+                                <?php if ($items) { ?>
+                                <ul class="list-group">
+                                    <?php foreach ($items as $item) { ?>
+                                    <li class="list-group-item"><a class="me-2" href="ajout-modification-liste.php?idList=<?=$list['idList']?>&action=updateStatusListItem&redirect=list&idList=<?=$item['idItem'] ?>&status=<?=!$item['status'] ?>"><i class="bi bi-check-circle<?=($item['status'] ? '-fill' : '')?>"></i> </a> <?=$item['idItem'] ?> </li>
+                                    <?php } ?>
+                                
+                                </ul>
+                                <?php } ?>
+                                <div class="d-flex justify-content-between align-items-end mt-2">
+                                    <a href="ajout-modification-liste.php?idList=<?=$list['idList'] ?>" class="btn btn-primary">Voir la liste</a>
+                                    <div>
+                                        <span class="badge rounded-pill text-bg-primary">
+                                            <i class="bi <?=$list['category_icon']?>"></i>
+                                            <?=$list['titleCategory']?>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
