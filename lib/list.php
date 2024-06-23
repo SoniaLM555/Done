@@ -26,7 +26,7 @@ function getListsByUserId(PDO $pdo, int $userId, int $idCategory=null): array
 
 function getListById(PDO $pdo, int $idList):array|bool
 {
-    $query = $pdo->prepare("SELECT * FROM list WHERE idList = :idList");
+    $query = $pdo->prepare('SELECT * FROM list WHERE idList = :idList');
     $query->bindValue(':idList', $idList, PDO::PARAM_INT);
     $query->execute();
 
@@ -102,7 +102,7 @@ function deleteListItemById(PDO $pdo, int $idItem):bool
 
 function updateListItemStatus(PDO $pdo, int $idItem, bool $status):bool
 {
-    $query = $pdo->prepare("UPDATE item SET 'status' = ':status' WHERE idItem = :idItem ");
+    $query = $pdo->prepare("UPDATE item SET status = :status WHERE idItem = :idItem ");
     $query->bindValue(':idItem', $idItem, PDO::PARAM_INT);
     $query->bindValue(':status', $status, PDO::PARAM_BOOL);
 

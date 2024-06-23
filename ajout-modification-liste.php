@@ -35,7 +35,7 @@ if(isset($_POST['saveList'])){
            if ($idList) {
                $messagesList[] = "La liste à bien été mise à jour";
            } else {
-            header('Location: ajout-modification-liste.php?idList=' . $res );
+            header('Location: ajout-modification-liste.php?idList=' . $res);
            }
        } else {
             // erreur
