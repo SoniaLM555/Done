@@ -30,7 +30,7 @@ if(isset($_POST['saveList'])){
         if (isset($_GET['idList'])) {
             $idList = $_GET['idList'];
         }
-       $res = saveList($pdo, $_POST['titleList'], (int)$_SESSION['users']['idList'], $_POST['idCategory'], $idList);
+       $res = saveList($pdo, $_POST['titleList'], (int)$_SESSION['users']['idUser'], $_POST['idCategory'], $idList);
        if ($res) {
            if ($idList) {
                $messagesList[] = "La liste à bien été mise à jour";
