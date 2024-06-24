@@ -43,7 +43,7 @@ function saveList(PDO $pdo, string $titleList, int $userId, int $idCategory, int
         $query->bindValue(':idList', $idList, PDO::PARAM_INT);
     } else {
         // insert
-        $query = $pdo->prepare("INSERT INTO 'list' (titleList, idCategory, idUser)
+        $query = $pdo->prepare("INSERT INTO list (titleList, idCategory, idUser)
                                 VALUES (:titleList,  :idCategory, :idUser)");
     }
     $query->bindValue(':titleList', $titleList, PDO::PARAM_STR);
