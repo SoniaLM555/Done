@@ -9,9 +9,27 @@
         $user = verifyUserLoginPassword($pdo, $_POST['email'], $_POST['password']);
 
         if ($user) {
-            //on connecte => session
-            $_SESSION['users'] = $user;
-            header('location: index.php');
+        //on connecte => session
+        $_SESSION['users'] = $user;
+        
+        // Log de connexion en JSON (NoSQL)
+        $log = [
+            'date' => date('Y-m-d H:i:s'),
+            'idUser' => $user['idUser'],
+            'action' => 'connexion'
+        ];
+        $logFile = __DIR__ . '/logs/connexions.json';
+        if (!is_dir(__DIR__ . '/logs')) {
+            mkdir(__DIR__ . '/logs', 0777, true);
+        }
+        $logs = [];
+        if (file_exists($logFile)) {
+            $logs = json_decode(file_get_contents($logFile), true) ?? [];
+        }
+        $logs[] = $log;
+        file_put_contents($logFile, json_encode($logs, JSON_PRETTY_PRINT));
+        
+        header('location: index.php');
         } else {
             //afficher une erreur
             $errors[] = "Email ou mot de passe incorrect";
